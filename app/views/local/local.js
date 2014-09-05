@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.local', ['ngRoute'])
+angular.module('myApp.local', ['ngRoute','geolocation'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/local', {
@@ -9,6 +9,8 @@ angular.module('myApp.local', ['ngRoute'])
   });
 }])
 
-.controller('LocalLocationCtrl', [function() {
-
+.controller('LocalLocationCtrl', [function($scope,geolocation) {
+    geolocation.getLocation().then(function(data){
+        $scope.coords = {lat: data.coords.latitude, long: data.coords.longitude};
+    });
 }]);
