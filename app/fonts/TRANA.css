@@ -1,0 +1,11 @@
+@font-face {
+	font-family: 'TRANA';
+	src: url('./TRANA.eot');
+	src: local('TRANA'), url('./TRANA.woff') format('woff'), url('./TRANA.ttf') format('truetype');
+}
+/* use this class to attach this font to any element i.e. <p class="trana">Text with this font applied</p> */
+.trana {
+	font-family: 'TRANA' !important;
+}
+
+/* Font downloaded from FontsForWeb.com */
