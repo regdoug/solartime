@@ -26,6 +26,11 @@
 
   <div ng-view></div>
 
+  <div ng-controller="SolarTimeCtrl">
+      <span class="trana" style="font-size:72pt;">{{solarTime}}</span>
+      <div>Time is {{time | date}}</div>
+  </div>
+
   <div>Angular seed app: v<span app-version></span></div>
 
   <!-- In production use:
@@ -34,6 +39,7 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angularjs-geolocation/src/geolocation.js"></script>
+  <script src="bower_components/date-utils/lib/date-utils.js"></script>
   <script src="app.js"></script>
   <script src="views/local/local.js"></script>
   <script src="views/arbitrary/arbitrary.js"></script>
