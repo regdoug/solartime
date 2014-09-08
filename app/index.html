@@ -11,24 +11,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="app.css"/>
   <link rel="stylesheet" href="fonts/TRANA.css"/>
+  <link rel="stylesheet" href="fonts/foundation-icons.css"/>
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
-<body ng-controller="LocationCtrl" class="row">
-<div class="small-12 columns"
-  <ul class="menu">
-    <li><a href="#/home">Solar Times</a></li>
-    <li><a href="#/about">About</a></li>
-  </ul>
+<body ng-controller="LocationCtrl">
+<div class="icon-bar two-up label-right">
+  <a class="item" href="#/home"><i class="fi-burst"></i>Solar Times</a>
+  <a class="item" href="#/about"><i class="fi-info"></i>About</a>
+</div>
 
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+<!--[if lt IE 7]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
-  <form name="userData" >
-      <input type="number" name="lat" ng-model="coords.user.lat" placeholder="Latitude">
-      <input type="number" name="long" ng-model="coords.user.long" placeholder="Longitude">
-      <input type="text" name="date" ng-model="userTime" placeholder="Type the date and time">
-  </form>
+<form name="userData" >
+  <div class="row">
+    <div class="small-3 columns">
+      <div class="row">
+        <div class="small-4 columns">
+          <label for="lat-input" class="right inline">Latitude</label>
+        </div>
+        <div class="small-8 columns">
+          <input id="lat-input" type="number" name="lat" ng-model="coords.user.lat" placeholder="{{ coords.local.lat }}">
+        </div>
+      </div>
+    </div>
+    <div class="small-3 columns">
+      <div class="row">
+        <div class="small-4 columns">
+          <label for="long-input" class="right inline">Longitude</label>
+        </div>
+        <div class="small-8 columns">
+          <input id="long-input" type="number" name="long" ng-model="coords.user.long" placeholder="{{ coords.local.lat }}">
+        </div>
+      </div>
+    </div>
+    <div class="small-4 columns">
+      <div class="row">
+        <div class="small-2 columns">
+          <label for="time-input" class="right inline">Date</label>
+        </div>
+        <div class="small-10 columns">
+          <input id="time-input" type="text" name="date" ng-model="userTime" placeholder="Type the date and time">
+        </div>
+      </div>
+    </div>
+    <div class="small-2 columns">
+      <div class="row">
+        <div class="small-5 columns">
+          <label for="time-input" class="right inline">Timezone</label>
+        </div>
+        <div class="small-7 columns">
+          <select id="tz-input" name="tz" ng-model="userTZ"></select>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+<div class="small-12 columns">
+
   <div>
       User Lat: {{ coords.user.lat }}, Lat: {{ coords.lat }},
       User Long: {{ coords.user.long }}, Long: {{ coords.long }}
@@ -36,6 +79,8 @@
   </div>
 
   <div ng-view></div>
+</div>
+</div>
 
   <div>Angular seed app: v<span app-version></span></div>
   <div>Geolocation {{ geoError }}</div>
@@ -52,6 +97,5 @@
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
-</div>
 </body>
 </html>
