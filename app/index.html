@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="app.css"/>
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
-<body>
+<body ng-controller="LocationCtrl">
   <ul class="menu">
     <li><a href="#/home">Solar Times</a></li>
     <li><a href="#/about">About</a></li>
@@ -24,11 +24,16 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <form name="userData" ng-mode-options="{ gettersetter: true }">
+  <form name="userData" >
       <input type="number" name="lat" ng-model="coords.user.lat" placeholder="Latitude">
       <input type="number" name="long" ng-model="coords.user.long" placeholder="Longitude">
       <input type="text" name="date" ng-model="userTime" placeholder="Type the date and time">
   </form>
+  <div>
+      User Lat: {{ coords.user.lat }}, Lat: {{ coords.lat }},
+      User Long: {{ coords.user.long }}, Long: {{ coords.long }}
+      User Time: {{ userTime }}, Time: {{ time | date }}
+  </div>
 
   <div ng-view></div>
 

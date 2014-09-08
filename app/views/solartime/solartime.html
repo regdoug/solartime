@@ -1,7 +1,7 @@
 <section class="solartime">
 <header>
     <h1>Solar Time</h1>
-    <p>for {{ -coords.lat | number:2 }}&deg;W, {{ coords.long | number:2 }}&deg;N on {{ time | date:'MMM d yyyy h:mm a' }}{{ time.getTimezone() }}</p>
+    <p>for {{ -coords.lat | number:2 }}&deg;W, {{ coords.long | number:2 }}&deg;N on {{ time | date:'MMM d yyyy h:mm a' }} {{ time.getTimezone() }}</p>
 </header>
 <div class="clock container">
     <span class="clock">{{ solarTime | date:'hh:mm' }}<span class="ampm">{{ solarTime | date:'a' }}</span></span>

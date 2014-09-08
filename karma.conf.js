@@ -8,7 +8,7 @@ module.exports = function(config){
       'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angularjs-geolocation/src/geolocation.js',
-      'app/bower_components/date-utils/lib/date-utils.js',
+      'app/bower_components/datejs/build/date.js',
       'app/components/**/*.js',
       'app/views/**/*.js',
       'app/app*.js'
