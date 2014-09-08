@@ -3,8 +3,10 @@
     <h1>Solar Time</h1>
     <p>for {{ -coords.lat | number:2 }}&deg;W, {{ coords.long | number:2 }}&deg;N on {{ time | date:'MMM d yyyy h:mm a' }} {{ time.getTimezone() }}</p>
 </header>
-<div class="clock container">
+<div class="row">
+<div class="clock small-12 columns">
     <span class="clock">{{ solarTime | date:'hh:mm' }}<span class="ampm">{{ solarTime | date:'a' }}</span></span>
+</div>
 </div>
 <h2>Technical Details</h2>
 <table>
