@@ -1,0 +1,22 @@
+<section class="solartime">
+<header>
+    <h1>Solar Time</h1>
+    <p>for {{ -coords.lat | number:2 }}&deg;W, {{ coords.long | number:2 }}&deg;N on {{ time | date:'MMM d yyyy h:mm a' }}{{ time.getTimezone() }}</p>
+</header>
+<div class="clock container">
+    <span class="clock">{{ solarTime | date:'hh:mm' }}<span class="ampm">{{ solarTime | date:'a' }}</span></span>
+</div>
+<h2>Technical Details</h2>
+<table>
+    <thead>
+        <tr>
+            <td>Name</td><td>Symbol</td><td>Description</td><td>Value</td>
+        </tr>
+    </thead>
+        <tr ng-repeat="t in technicals">
+            <td>{{ t.name }}</td><td>{{ t.symbol }}</td><td>{{ t.desc }}</td><td>{{ t.value }}</td>
+        </tr>
+    <tbody>
+    </tbody>
+</table>
+</section>

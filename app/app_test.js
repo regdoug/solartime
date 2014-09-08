@@ -8,7 +8,7 @@ describe('myApp module', function() {
 
     it('should exist', inject(function($rootScope,$controller) {
       var scope = $rootScope.$new();
-      var ctrl = $controller('SolarTimeCtrl', {"$scope": scope});
+      var ctrl = $controller('LocationCtrl', {"$scope": scope});
       expect(ctrl).toBeDefined();
     }));
 

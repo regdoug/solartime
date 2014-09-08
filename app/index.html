@@ -16,22 +16,24 @@
 </head>
 <body>
   <ul class="menu">
-    <li><a href="#/local">My Time</a></li>
-    <li><a href="#/arbitrary">Enter a Location</a></li>
+    <li><a href="#/home">Solar Times</a></li>
+    <li><a href="#/about">About</a></li>
   </ul>
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
+  <form name="userData" ng-mode-options="{ gettersetter: true }">
+      <input type="number" name="lat" ng-model="coords.user.lat" placeholder="Latitude">
+      <input type="number" name="long" ng-model="coords.user.long" placeholder="Longitude">
+      <input type="text" name="date" ng-model="userTime" placeholder="Type the date and time">
+  </form>
+
   <div ng-view></div>
 
-  <div ng-controller="SolarTimeCtrl">
-      <span class="trana" style="font-size:72pt;">{{solarTime}}</span>
-      <div>Time is {{time | date}}</div>
-  </div>
-
   <div>Angular seed app: v<span app-version></span></div>
+  <div>Geolocation {{ geoError }}</div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
@@ -39,10 +41,9 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angularjs-geolocation/src/geolocation.js"></script>
-  <script src="bower_components/date-utils/lib/date-utils.js"></script>
+  <script src="bower_components/datejs/build/date.js"></script>
   <script src="app.js"></script>
-  <script src="views/local/local.js"></script>
-  <script src="views/arbitrary/arbitrary.js"></script>
+  <script src="views/solartime/solartime.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>

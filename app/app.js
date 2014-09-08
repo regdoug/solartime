@@ -3,57 +3,73 @@
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
   'ngRoute',
-  'myApp.local',
-  'myApp.arbitrary',
-  'myApp.version'
+  'myApp.solartime',
+  //'myApp.about',
+  'myApp.version',
+  'geolocation'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/local'});
+  $routeProvider.otherwise({redirectTo: '/home'});
 }])
-.controller('SolarTimeCtrl', ['$scope', function($scope) {
-    // Compute solar times
-    var calcTimes = function() {
-        if($scope.coords && $scope.coords.lat && $scope.coords.long && $scope.time) {
-            // set up helper functions
-            var radians = function(degrees) { return degrees * Math.PI / 180; }
-            var degrees = function(radians) { return radians / Math.PI * 180; }
 
-            // Initialize internal numbers
-            var n = $scope.time.getOrdinalNumber(),
-                B = 2*Math.PI*($scope.misc.dayOfYear - 81)/364,
-                E = 9.87*Math.sin(2*B) - 7.53*Math.cos(B) - 1.5*Math.sin(B),
-                L = radians($scope.coords.lat),
-                LL = radians($scope.coords.long),
-                LTM = radians($scope.time.getTimezoneOffset()/4);
+.controller('LocationCtrl', ['$scope', 'geolocation', function($scope,geolocation) {
+    // Set up variables
+    $scope.coords = {};
 
-            // Solar time offset (min)
-            var off = degrees(LTM - LL)*4 + E;
-            // Compute solar time
-            $scope.solarTime = $scope.time.add({"minutes": off});
+    // Use geolocation API to find location
+    $scope.geoError = "ok";
+    geolocation.getLocation().then(function(data){
+        $scope.coords.local = {lat: data.coords.latitude, long: data.coords.longitude};
+        $scope.localTime = Date.present();
+    }, function(reason) {
+        $scope.coords.local = false;
+        $scope.geoError = reason;
+    });
 
-            // Solar angle
-            $scope.solarAngle = (12 - $scope.solarTime.getHours())*15 + (60 - $scope.solarTime.getMinutes())/4.0 + (1000 - $scope.solarTime.getMilliseconds())/4000.0;
-            var H = radians($scope.solarAngle);
-
-
-            // Declination in radians
-            var delta = radians(23.45)*Math.sin(2*Math.PI*(n-81)/365);
-            // altitude and azimuth
-            var sinBeta = Math.cos(L)*Math.cos(delta)*Math.cos(H) + Math.sin(L)*Math.sin(delta);
-            var beta = Math.asin(sinBeta);
-            var sinPhi = Math.cos(delta)*Math.sin(H)/Math.cos(beta);
-            var phi = Math.asin(sinPhi);
-            var check = Math.cos(H) > Math.tan(delta)/Math.tan(L);
-            if( check === false ) {
-                phi = Math.PI + (Math.PI - phi);
+    // Set up getter/setter methods
+    var _userLat, _userLong, _userTime;
+    $scope.coords.user = {
+        lat: function(newLat) {
+            if (angular.isDefined(newLat)) {
+                _userLat = newLat;
+                if (newLat === '') {
+                    if ( $scope.coords.local ) {
+                        // If nothing has been typed and local latitude is available, use that
+                        $scope.coords.lat = $scope.coords.local.lat;
+                    }
+                } else {
+                    // If something has been typed, use that
+                    $scope.coords.lat = parseFloat(_userLat);
+                }
             }
-
-            $scope.declination = degrees(delta);
-            $scope.altitudeNoon = 90 - $scope.coords.lat + $scope.declination;
-            $scope.altitude = degrees(beta);
-            $scope.azimuth = degrees(phi);
+            return _userLat;
+        },
+        long: function(newLong) {
+            if (angular.isDefined(newLong)) {
+                _userLong = newLong;
+                if (newLong === '') {
+                    if ( $scope.coords.local ) {
+                        // If nothing has been typed and local longitude is available, use that
+                        $scope.coords.long = $scope.coords.local.long;
+                    }
+                } else {
+                    // If something has been typed, use that
+                    $scope.coords.long = parseFloat(_userLong);
+                }
+            }
+            return _userLong;
         }
     };
-    $scope.watch('time', calcTimes);
-    $scope.watch('coords', calcTimes);
+    $scope.userTime = function(newTime){
+        if (angular.isDefined(newTime)) {
+            _userTime = newTime;
+            // date.js has great parsing features
+            var newDate = Date.parse(newTime);
+            if (newDate !== null) {
+                $scope.time = newDate;
+            }
+        }
+        return _userTime;
+    };
+        
 }]);
