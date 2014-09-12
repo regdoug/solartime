@@ -1,7 +1,7 @@
 <section class="solartime">
 <header>
     <h1>Solar Time</h1>
-    <p>for {{ -coords.lat | number:2 }}&deg;W, {{ coords.long | number:2 }}&deg;N on {{ time | date:'MMM d yyyy h:mm a' }} {{ time.getTimezone() }}</p>
+    <p>for {{ coords.lat | number:2 }}&deg;N, {{ coords.longitude | number:2 }}&deg;E on {{ time | date:'MMM d yyyy h:mm a' }} {{ time.getTimezone() }}</p>
 </header>
 <div class="row">
 <div class="clock small-12 columns">
@@ -16,9 +16,10 @@
         </tr>
     </thead>
         <tr ng-repeat="t in technicals">
-            <td>{{ t.name }}</td><td>{{ t.symbol }}</td><td>{{ t.desc }}</td><td>{{ t.value }}</td>
+            <td>{{ info[t.id].name }}</td><td>{{ info[t.id].symbol }}</td><td>{{ info[t.id].desc }}</td><td>{{ t.value | number:2 }}</td>
         </tr>
     <tbody>
     </tbody>
 </table>
+{{ coords.longitude }}
 </section>

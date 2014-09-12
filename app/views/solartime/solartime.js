@@ -9,10 +9,14 @@ angular.module('myApp.solartime', ['ngRoute'])
   });
 }])
 
-.controller('SolarTimeCtrl', ['$scope', function($scope) {
+.controller('SolarTimeCtrl', ['$scope', '$http', function($scope,$http) {
+    // Load description of technical variables
+    $http.get('/views/solartime/technicals.json').then(function(data){
+        $scope.info = data.data;
+    });
     // Compute solar times
     var calcTimes = function() {
-        if( !(angular.isDefined($scope.time) && angular.isDefined($scope.coords.lat) && angular.isDefined($scope.coords.long)) ) {
+        if( !(angular.isDefined($scope.time) && angular.isDefined($scope.coords.lat) && angular.isDefined($scope.coords.longitude)) ) {
             return;
         }
         // set up helper functions
@@ -20,15 +24,19 @@ angular.module('myApp.solartime', ['ngRoute'])
         var degrees = function(radians) { return radians / Math.PI * 180; };
 
         // Initialize internal numbers
+        //TODO: remove debug
+        console.log("calculating times. L="+$scope.coords.lat+" LL="+$scope.coords.longitude);
         var n = $scope.time.getOrdinalNumber(),
             B = 2*Math.PI*(n - 81)/364,
             E = 9.87*Math.sin(2*B) - 7.53*Math.cos(B) - 1.5*Math.sin(B),
             L = radians($scope.coords.lat),
-            LL = radians($scope.coords.long),
-            LTM = radians($scope.time.getTimezoneOffset()/4);
+            LL = radians($scope.coords.longitude),
+            LTM = radians(-$scope.time.getTimezoneOffset()/4);
+
+        //LTM += ($scope.time.isDaylightSavingTime())?radians(-15):0;
 
         // Solar time offset (min)
-        var off = degrees(LTM - LL)*4 + E;
+        var off = degrees(LL - LTM)*4 + E;
         // Compute solar time
         $scope.solarTime = $scope.time.clone().addMinutes(off);
 
@@ -49,13 +57,21 @@ angular.module('myApp.solartime', ['ngRoute'])
             phi = Math.PI + (Math.PI - phi);
         }
 
-        $scope.declination = degrees(delta);
-        $scope.altitudeNoon = 90 - $scope.coords.lat + $scope.declination;
-        $scope.altitude = degrees(beta);
-        $scope.azimuth = degrees(phi);
+        $scope.technicals = [
+            {"id":"delta", "value":degrees(delta)},
+            {"id":"n", "value":n},
+            {"id":"beta", "value":degrees(beta)},
+            {"id":"betaN", "value":(90-degrees(L-delta))},
+            {"id":"solarAngle", "value":degrees(phi)},
+            {"id":"timeOffset", "value":off},
+            {"id":"LTM", "value":degrees(LTM)},
+            {"id":"LL", "value":degrees(LL)},
+            {"id":"E", "value":E},
+        ];
     };
-    $scope.watch('time', calcTimes);
-    $scope.watch('coords.lat', calcTimes);
-    $scope.watch('coords.long', calcTimes);
+    $scope.$watch('time', calcTimes);
+    $scope.$watch('coords.lat', calcTimes);
+    $scope.$watch('coords.longitude', calcTimes);
     calcTimes();
+    window.calcTimes = calcTimes;
 }]);

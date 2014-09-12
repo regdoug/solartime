@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="app.css"/>
   <link rel="stylesheet" href="fonts/TRANA.css"/>
   <link rel="stylesheet" href="fonts/foundation-icons.css"/>
-  <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+  <script src="bower_components/foundation/js/vendor/modernizr.js"></script>
 </head>
 <body ng-controller="LocationCtrl">
 <div class="icon-bar two-up label-right">
@@ -26,42 +26,42 @@
 
 <form name="userData" >
   <div class="row">
-    <div class="small-3 columns">
-      <div class="row">
-        <div class="small-4 columns">
-          <label for="lat-input" class="right inline">Latitude</label>
+    <div class="large-3 columns">
+      <div class="row collapse">
+        <div class="small-3 medium-2 large-4 columns">
+          <label for="lat-input" class="prefix">Latitude</label>
         </div>
-        <div class="small-8 columns">
+        <div class="small-9 medium-10 large-8 columns">
           <input id="lat-input" type="number" name="lat" ng-model="coords.user.lat" placeholder="{{ coords.local.lat }}">
         </div>
       </div>
     </div>
-    <div class="small-3 columns">
-      <div class="row">
-        <div class="small-4 columns">
-          <label for="long-input" class="right inline">Longitude</label>
+    <div class="large-3 columns">
+      <div class="row collapse">
+        <div class="small-3 medium-2 large-4 columns">
+          <label for="long-input" class="prefix">Longitude</label>
         </div>
-        <div class="small-8 columns">
-          <input id="long-input" type="number" name="long" ng-model="coords.user.long" placeholder="{{ coords.local.lat }}">
+        <div class="small-9 medium-10 large-8 columns">
+          <input id="long-input" type="number" name="long" ng-model="coords.user.longitude" placeholder="{{ coords.local.longitude }}">
         </div>
       </div>
     </div>
-    <div class="small-4 columns">
-      <div class="row">
-        <div class="small-2 columns">
-          <label for="time-input" class="right inline">Date</label>
+    <div class="large-4 columns">
+      <div class="row collapse">
+        <div class="small-3 medium-2 large-2 columns">
+          <label for="time-input" class="prefix">Date</label>
         </div>
-        <div class="small-10 columns">
+        <div class="small-9 medium-10 large-10 columns">
           <input id="time-input" type="text" name="date" ng-model="userTime" placeholder="Type the date and time">
         </div>
       </div>
     </div>
-    <div class="small-2 columns">
-      <div class="row">
-        <div class="small-5 columns">
-          <label for="time-input" class="right inline">Timezone</label>
+    <div class="large-2 columns">
+      <div class="row collapse">
+        <div class="small-3 medium-2 large-5 columns">
+          <label for="tz-input" class="prefix">Timezone</label>
         </div>
-        <div class="small-7 columns">
+        <div class="small-9 medium-10 large-7 columns">
           <select id="tz-input" name="tz" ng-model="userTZ"></select>
         </div>
       </div>
@@ -74,7 +74,7 @@
 
   <div>
       User Lat: {{ coords.user.lat }}, Lat: {{ coords.lat }},
-      User Long: {{ coords.user.long }}, Long: {{ coords.long }}
+      User Long: {{ coords.user.longitude }}, Long: {{ coords.longitude }}
       User Time: {{ userTime }}, Time: {{ time | date }}
   </div>
 
