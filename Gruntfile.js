@@ -23,14 +23,26 @@ module.exports = function(grunt) {
         files: 'scss/**/*.scss',
         tasks: ['sass']
       }
-    }
+    },
+
+    clean: ['../solartime-pages/'],
+
+    copy: {
+        main: {
+            files: [
+                {expand: true, cwd: 'app/', src: ['**'], dest: '../solartime-pages/'}
+            ]
+        }
+    },
+        
   });
 
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  //grunt.loadNpmTasks('grunt-contrib-copy');
-  //grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   grunt.registerTask('build', ['sass']);
+  grunt.registerTask('publish',['clean', 'copy']);
   grunt.registerTask('default', ['build','watch']);
 }
