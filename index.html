@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SolarTime.me</title>
+  <meta name="description" content="Computes the solar angles and local solar time given position and civil time.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="app.css"/>
+  <link rel="stylesheet" href="fonts/TRANA.css"/>
+  <link rel="stylesheet" href="fonts/foundation-icons.css"/>
+  <script src="bower_components/foundation/js/vendor/modernizr.js"></script>
+</head>
+<body ng-controller="LocationCtrl">
+<div class="icon-bar two-up label-right">
+  <a class="item" href="#/home"><i class="fi-burst"></i>Solar Times</a>
+  <a class="item" href="#/about"><i class="fi-info"></i>About</a>
+</div>
+
+<!--[if lt IE 7]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<form name="userData" >
+  <div class="row">
+    <div class="large-3 columns">
+      <div class="row collapse">
+        <div class="small-3 medium-2 large-4 columns">
+          <label for="lat-input" class="prefix">Latitude</label>
+        </div>
+        <div class="small-9 medium-10 large-8 columns">
+          <input id="lat-input" type="number" name="lat" ng-model="coords.user.lat" placeholder="{{ coords.local.lat }}">
+        </div>
+      </div>
+    </div>
+    <div class="large-3 columns">
+      <div class="row collapse">
+        <div class="small-3 medium-2 large-4 columns">
+          <label for="long-input" class="prefix">Longitude</label>
+        </div>
+        <div class="small-9 medium-10 large-8 columns">
+          <input id="long-input" type="number" name="long" ng-model="coords.user.longitude" placeholder="{{ coords.local.longitude }}">
+        </div>
+      </div>
+    </div>
+    <div class="large-4 columns">
+      <div class="row collapse">
+        <div class="small-3 medium-2 large-2 columns">
+          <label for="time-input" class="prefix">Date</label>
+        </div>
+        <div class="small-9 medium-10 large-10 columns">
+          <input id="time-input" type="text" name="date" ng-model="userTime" placeholder="Type the date and time">
+        </div>
+      </div>
+    </div>
+    <div class="large-2 columns">
+      <div class="row collapse">
+        <div class="small-3 medium-2 large-5 columns">
+          <label for="tz-input" class="prefix">Timezone</label>
+        </div>
+        <div class="small-9 medium-10 large-7 columns">
+          <select id="tz-input" name="tz" ng-model="userTZ"></select>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+<div class="small-12 columns">
+
+  <div>
+      User Lat: {{ coords.user.lat }}, Lat: {{ coords.lat }},
+      User Long: {{ coords.user.longitude }}, Long: {{ coords.longitude }}
+      User Time: {{ userTime }}, Time: {{ time | date }}
+  </div>
+
+  <div ng-view></div>
+</div>
+</div>
+
+  <div>Angular seed app: v<span app-version></span></div>
+  <div>Geolocation {{ geoError }}</div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angularjs-geolocation/src/geolocation.js"></script>
+  <script src="bower_components/datejs/build/date.js"></script>
+  <script src="app.js"></script>
+  <script src="views/solartime/solartime.js"></script>
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+</body>
+</html>
