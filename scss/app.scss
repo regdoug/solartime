@@ -3,7 +3,7 @@
 
 // Or selectively include components
  @import
-//   "foundation/components/accordion",
+   "foundation/components/accordion",
 //   "foundation/components/alert-boxes",
    "foundation/components/block-grid",
 //   "foundation/components/breadcrumbs",
@@ -40,6 +40,14 @@
    "foundation/components/offcanvas",
    "foundation/components/visibility";
 
+.fullwidth {
+    max-width: 100% !important;
+}
+
+sub {
+    font-size: 0.7em;
+}
+
 .clock {
     font-family: 'TRANA', sans-serif;
     font-size: 5rem;
@@ -47,5 +55,59 @@
 
     .ampm {
         font-size: 0.5em;
+    }
+}
+
+thead {
+    .name {
+        width: 20%;
+    }
+    .symbol, .class, .value {
+        width: 5em;
+    }
+}
+
+section.solartime {
+    border: 1px solid #ccc;
+    box-shadow: rem-calc(3 3 5 2) #555;
+    border-radius: 10px;
+    
+    .gradient {
+        background-image: linear-gradient( to bottom right, rgba(255,255,255,1.0) 0%, rgba(255,255,255,0.0) 100%);
+    }
+
+    .overlay {
+        background-color: white;
+        background-color: rgba(255,255,255,0.4);
+    }
+    a.overlay:hover {
+        background-color: #eee;
+        background-color: rgba(240,240,240,0.5);
+    }
+
+    .sun {
+        padding: rem-calc(80);
+        background-image: url('/views/solartime/sun.svg');
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    header {
+        border-bottom: 1px solid #eee;
+        padding: 0 1.5rem;
+
+        h1 {
+            display: inline-block;
+            font-size: 2em;
+        }
+        p {
+            font-weight: bold;
+            display: inline;
+        }
+    }
+
+    span.clock {
+        padding: 0.5rem;
+        border-radius: 0.5rem;
     }
 }
