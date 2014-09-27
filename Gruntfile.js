@@ -30,7 +30,7 @@ module.exports = function(grunt) {
     copy: {
         main: {
             files: [
-                {expand: true, cwd: 'app/', src: ['**'], dest: '../solartime-pages/'}
+                {expand: true, cwd: 'app/', src: ['**','!**/*_test.js','!index-async.html'], dest: '../solartime-pages/'}
             ]
         }
     },
