@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.solartime', ['ngRoute'])
+angular.module('myApp.solartime', ['ngRoute','ngSanitize'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {
@@ -24,8 +24,6 @@ angular.module('myApp.solartime', ['ngRoute'])
         var degrees = function(radians) { return radians / Math.PI * 180; };
 
         // Initialize internal numbers
-        //TODO: remove debug
-        console.log("calculating times. L="+$scope.coords.lat+" LL="+$scope.coords.longitude);
         var n = $scope.time.getOrdinalNumber(),
             B = 2*Math.PI*(n - 81)/364,
             E = 9.87*Math.sin(2*B) - 7.53*Math.cos(B) - 1.5*Math.sin(B),
@@ -65,13 +63,13 @@ angular.module('myApp.solartime', ['ngRoute'])
             {"id":"solarAngle", "value":degrees(phi)},
             {"id":"timeOffset", "value":off},
             {"id":"LTM", "value":degrees(LTM)},
-            {"id":"LL", "value":degrees(LL)},
-            {"id":"E", "value":E},
         ];
+        $scope.H = degrees(H); // needed for moving the sun background
     };
     $scope.$watch('time', calcTimes);
     $scope.$watch('coords.lat', calcTimes);
     $scope.$watch('coords.longitude', calcTimes);
+    $scope.Math = window.Math;
     calcTimes();
     window.calcTimes = calcTimes;
 }]);

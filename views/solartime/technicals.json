@@ -2,31 +2,49 @@
     "delta": {
         "name":"Declination",
         "symbol":"&delta;",
+        "unit":"&deg;",
         "desc":"Angle of noontime sun relative to the equatorial plane"
     },
     "beta": {
         "name":"Altitude",
         "symbol":"&beta;",
+        "unit":"&deg;",
         "desc":"Angle of sun above the horizon"
     },
     "betaN": {
         "name":"Noontime Altitute",
         "symbol":"&beta;<sub>N</sub>",
+        "unit":"&deg;",
         "desc":"Angle of sun above the horizon at solar noon"
     },
     "azimuth": {
         "name":"Azimuth",
-        "symbol":"&phi<sub>S</sub>",
+        "symbol":"&phi;<sub>S</sub>",
+        "unit":"&deg;",
         "desc":"Degrees east or west of solar noon, as seen from the ground"
     },
     "solarAngle": {
         "name":"Hour Angle",
         "symbol":"H",
+        "unit":"&deg;",
         "desc":"Degrees of Earth's rotation before solar noon"
     },
     "n": {
         "name":"Day in Year",
         "symbol":"n",
+        "unit":"",
         "desc":""
+    },
+    "LTM": {
+        "name":"Local Time Meridian",
+        "symbol":"LTM",
+        "unit":"&deg;",
+        "desc":"Nominal longitude value for your time zone"
+    },
+    "timeOffset": {
+        "name":"Time Offset",
+        "unit":"min",
+        "symbol":"",
+        "desc":"Current difference between local and solar time"
     }
 }

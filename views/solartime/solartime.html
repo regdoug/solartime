@@ -1,25 +1,44 @@
-<section class="solartime">
-<header>
+<section class="solartime" style="background-color:#fd0" ng-attr-style="background-color:hsl({{53-2*Math.exp(-H/100)}},{{90+0.001*H*H}}%,{{70-0.002*H*H}}%);">
+<div class="gradient">
+<header class="overlay">
     <h1>Solar Time</h1>
     <p>for {{ coords.lat | number:2 }}&deg;N, {{ coords.longitude | number:2 }}&deg;E on {{ time | date:'MMM d yyyy h:mm a' }} {{ time.getTimezone() }}</p>
 </header>
-<div class="row">
-<div class="clock small-12 columns">
-    <span class="clock">{{ solarTime | date:'hh:mm' }}<span class="ampm">{{ solarTime | date:'a' }}</span></span>
+<div class="sun" ng-attr-style="background-position: {{(100-H)/2.0}}% 0%;">
+  <div class="row">
+    <div class="clock small-12 columns">
+      <span class="clock overlay">{{ solarTime | date:'hh:mm' }}
+        <span class="ampm">{{ solarTime | date:'a' }}</span>
+      </span>
+    </div>
+  </div>
 </div>
+<dl class="accordion">
+  <dd class="accordion-navigation">
+    <a href="#technicals" class="overlay">Technical Details</a>
+    <div id="technicals" class="content">
+      <table>
+        <thead>
+          <tr>
+            <td class="name">Name</td>
+            <td class="symbol">Symbol</td>
+            <td class="desc">Description</td>
+            <td class="value">Value</td>
+            <td class="unit">Unit</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="t in technicals">
+            <td>{{ info[t.id].name }}</td>
+            <td ng-bind-html="info[t.id].symbol"></td>
+            <td>{{ info[t.id].desc }}</td>
+            <td>{{ t.value | number:2 }}</td>
+            <td ng-bind-html="info[t.id].unit"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </dd>
+</dl>
 </div>
-<h2>Technical Details</h2>
-<table>
-    <thead>
-        <tr>
-            <td>Name</td><td>Symbol</td><td>Description</td><td>Value</td>
-        </tr>
-    </thead>
-        <tr ng-repeat="t in technicals">
-            <td>{{ info[t.id].name }}</td><td>{{ info[t.id].symbol }}</td><td>{{ info[t.id].desc }}</td><td>{{ t.value | number:2 }}</td>
-        </tr>
-    <tbody>
-    </tbody>
-</table>
-{{ coords.longitude }}
 </section>
