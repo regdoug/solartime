@@ -11,7 +11,8 @@ module.exports = function(config){
       'app/bower_components/datejs/build/date.js',
       'app/components/**/*.js',
       'app/views/**/*.js',
-      'app/app*.js'
+      'app/app*.js',
+      '!app/app.foundation.js'
     ],
 
     preprocessors: {
